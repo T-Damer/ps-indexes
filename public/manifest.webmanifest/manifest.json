@@ -1,0 +1,39 @@
+{
+  "name": "neo-N",
+  "short_name": "neo-N",
+  "description": "Считайте по формулам без таблиц",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "screenshots": [
+    {
+      "src": "./screenshots/1.png",
+      "form_factor": "narrow",
+      "sizes": "1200x2670",
+      "type": "image/png",
+      "label": "Добавляйте пациента по номеру истории"
+    },
+    {
+      "src": "./screenshots/2.png",
+      "form_factor": "narrow",
+      "sizes": "1200x2670",
+      "type": "image/png",
+      "label": "Заполняйте историю родов, все изменения сразу сохраняются на девайсе"
+    },
+    {
+      "src": "./screenshots/3.png",
+      "form_factor": "narrow",
+      "sizes": "1200x2670",
+      "type": "image/png",
+      "label": "Делитесь данными в виде таблицы"
+    },
+    {
+      "src": "./screenshots/4.png",
+      "form_factor": "wide",
+      "sizes": "1280x640",
+      "type": "image/png",
+      "label": "Добавляйте пациента и вводите данные"
+    }
+  ]
+}
