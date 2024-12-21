@@ -26,7 +26,7 @@ export default function ({
         <span className="font-bold truncate-2 leading-snug">{title}</span>
       </div>
       {icon ? (
-        <div className="absolute opacity-10 rotate-45 left-0 bottom-0 w-full h-full pointer-events-none">
+        <div className="absolute opacity-10 rotate-45 -left-4 sm:left-0 -bottom-8 sm:bottom-0 w-full h-full pointer-events-none">
           {icon()}
         </div>
       ) : null}

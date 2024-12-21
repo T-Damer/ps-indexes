@@ -1,9 +1,20 @@
+import Button from 'components/Button'
 import DetailsHeader from 'components/DetailsHeader'
 import LabeledInput from 'components/LabeledInput'
 import { useEffect, useState } from 'preact/hooks'
 
 const href =
   'https://cyberleninka.ru/article/n/rol-ehokardiografii-vypolnennoy-neonatologom-pri-otsenke-i-lechenii-shoka-u-novorozhdennyh'
+
+function ArticleButton() {
+  return (
+    <Button>
+      <a href={href} target="_blank" className="no-underline">
+        <span className="font-bold">Статья</span>
+      </a>
+    </Button>
+  )
+}
 
 export default function UltrasoundFlow() {
   const [diameter, setDiameter] = useState(0)
@@ -22,15 +33,9 @@ export default function UltrasoundFlow() {
 
   return (
     <div className="flex flex-col">
-      <DetailsHeader
-        center={
-          <a href={href} target="_blank">
-            <span className="leading-none text-xs">Статья</span>
-          </a>
-        }
-      />
-      <div className="flex flex-row gap-x-2 items-center">
-        <div className="w-full">
+      <DetailsHeader right={<ArticleButton />} />
+      <div className="flex flex-row gap-x-2 items-center mt-4">
+        <div className="flex flex-col gap-y-4 w-full">
           <LabeledInput
             type="number"
             label="Диаметр сосуда (см)"
