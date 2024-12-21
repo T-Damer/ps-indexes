@@ -13,8 +13,13 @@ export default function () {
       <h1>👶 neoN</h1>
       <SearchBar search={search} setSearch={setSearch} />
       <div className="flex flex-wrap" ref={parentRef}>
-        {availablePages.map(({ title, location }) => (
-          <AppCard key={location} title={title} location={location} />
+        {availablePages.map(({ title, location, icon }) => (
+          <AppCard
+            key={location}
+            title={title}
+            location={location}
+            icon={icon}
+          />
         ))}
       </div>
     </div>

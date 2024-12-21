@@ -2,13 +2,16 @@ import { useCallback } from 'preact/hooks'
 import { useHashLocation } from 'wouter-preact/use-hash-location'
 import Card from 'components/Card'
 import scrollTop from 'helpers/scrollTop'
+import { JSX } from 'preact/jsx-runtime'
 
 export default function ({
   title,
   location,
+  icon,
 }: {
   title: string
   location: string
+  icon?: () => JSX.Element
 }) {
   const [, setLocation] = useHashLocation()
 
@@ -22,6 +25,11 @@ export default function ({
       <div className="flex-1 flex flex-col" onClick={onPress}>
         <span className="font-bold truncate-2 leading-snug">{title}</span>
       </div>
+      {icon ? (
+        <div className="absolute opacity-10 rotate-45 left-0 bottom-0 w-full h-full pointer-events-none">
+          {icon()}
+        </div>
+      ) : null}
     </Card>
   )
 }
