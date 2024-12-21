@@ -10,7 +10,7 @@ function ArticleButton() {
   return (
     <Button>
       <a href={href} target="_blank" className="no-underline">
-        <span className="font-bold">Статья</span>
+        <span className="font-bold">Статья ↗</span>
       </a>
     </Button>
   )

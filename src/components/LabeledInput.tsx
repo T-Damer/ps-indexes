@@ -1,17 +1,24 @@
 import { InputHTMLAttributes } from 'preact/compat'
+import { ClassName } from 'types/Props'
 
 export default function LabeledInput({
   label,
+  className,
+  labelClassName,
   ...inputProps
 }: {
+  labelClassName?: ClassName
   label?: string
 } & InputHTMLAttributes<HTMLInputElement>) {
   return (
-    <label className="form-control w-full max-w-xs">
+    <label className="form-control w-full">
       <div className="label">
-        <span className="label-text">{label}</span>
+        <span className={`label-text ${labelClassName}`}>{label}</span>
       </div>
-      <input {...inputProps} className="input input-bordered w-full max-w-xs" />
+      <input
+        {...inputProps}
+        className={`input input-bordered w-full ${className}`}
+      />
     </label>
   )
 }

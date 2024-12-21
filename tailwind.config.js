@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        'safe-bottom': 'calc(env(safe-area-inset-bottom) + 1.25rem)',
+        'safe-bottom': 'var(--safe-area-bottom)',
       },
     },
   },

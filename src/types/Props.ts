@@ -1,4 +1,5 @@
 import { ComponentChildren, JSX } from 'preact'
+import { OptionHTMLAttributes } from 'preact/compat'
 
 export type ClassName = JSX.HTMLAttributes<HTMLDivElement>['className']
 export type Style = JSX.HTMLAttributes<HTMLDivElement>['style']
@@ -26,3 +27,5 @@ export interface DefaultModalProps {
   setShowModal: (show: boolean) => void
   onCloseCallback?: () => void
 }
+
+export type SelectOption = OptionHTMLAttributes<HTMLOptionElement>

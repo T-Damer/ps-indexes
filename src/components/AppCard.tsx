@@ -23,7 +23,7 @@ export default function ({
   return (
     <Card>
       <div className="flex-1 flex flex-col" onClick={onPress}>
-        <span className="font-bold truncate-2 leading-snug">{title}</span>
+        <span className="font-bold">{title}</span>
       </div>
       {icon ? (
         <div className="absolute opacity-10 rotate-45 -left-4 sm:left-0 -bottom-8 sm:bottom-0 w-full h-full pointer-events-none">
