@@ -5,7 +5,7 @@ import ArrowLeft from './Icons/ArrowLeft'
 
 export default function ({ right }: { right?: JSX.Element }) {
   return (
-    <div className="flex print:hidden items-center justify-between">
+    <div className="flex items-center justify-between print:hidden">
       <Button onClick={goMain}>
         <ArrowLeft />
       </Button>

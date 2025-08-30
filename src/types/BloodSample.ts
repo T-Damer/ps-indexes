@@ -22,7 +22,7 @@ type PassportData = Header & {
   historySerial: { value: number; type: InputType; title: string }
   [key: string]: CommonContent
 }
-type CommonData = Header & { [key: string]: CommonContent }
+export type CommonData = Header & { [key: string]: CommonContent }
 
 export default class BloodSample {
   passport: Header & PassportData

@@ -19,7 +19,7 @@ export default function ({
 
   return (
     <div
-      className={`flex-1 relative overflow-hidden ${bgHover} ${minWidth} ${justify} min-h-40 shadow-md border-2 border-neutral-content ${outline} cursor-pointer rounded-box p-3 m-1 transition-all flex align-center pointer-events-auto ${className}`}
+      className={`relative flex-1 overflow-hidden ${bgHover} ${minWidth} ${justify} min-h-40 border-2 border-neutral-content shadow-md ${outline} pointer-events-auto m-1 flex cursor-pointer rounded-box p-3 align-center transition-all ${className}`}
       onClick={onPress}
     >
       {children}

@@ -36,7 +36,7 @@ function AddPatientForm() {
   const disabled = useMemo(() => !historySerial, [historySerial])
 
   return (
-    <div className="flex flex-col gap-2 justify-center">
+    <div className="flex flex-col justify-center gap-2">
       <label className="input input-bordered flex items-center gap-2">
         <input
           type="number"
@@ -89,7 +89,7 @@ function ImportPatient() {
   }, [parsedResult, setTests])
 
   return (
-    <div className="flex flex-col gap-2 justify-center">
+    <div className="flex flex-col justify-center gap-2">
       <input
         type="file"
         accept=".xls,.xlsx"
@@ -113,7 +113,7 @@ function ImportPatient() {
 
 export default function () {
   return (
-    <div className="w-full flex flex-col sm:flex-row gap-2">
+    <div className="flex w-full flex-col gap-2 sm:flex-row">
       <Card dashedOutline>
         <AddPatientForm />
       </Card>

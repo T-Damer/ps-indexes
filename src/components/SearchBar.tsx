@@ -9,7 +9,7 @@ export default function ({
   setSearch: (s: string) => void
 }) {
   return (
-    <label className="input input-bordered flex items-center gap-2 m-1">
+    <label className="input input-bordered m-1 flex items-center gap-2">
       <input
         type="text"
         className="grow"

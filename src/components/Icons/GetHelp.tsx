@@ -13,7 +13,7 @@ export default function GetHelp({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       onClick={onClick}
-      className="cursor-pointer opacity-40 hover:opacity-80 active:opacity-100 inline-block transition-opacity"
+      className="inline-block cursor-pointer opacity-40 transition-opacity hover:opacity-80 active:opacity-100"
     >
       <path
         fillRule="evenodd"

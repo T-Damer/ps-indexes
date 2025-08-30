@@ -34,8 +34,8 @@ export default function DrugCard({
   const [divisor, setDivisor] = useState(Number(divisorOptions?.[0].value || 1))
 
   return (
-    <Card className="flex-col justify-between cursor-default">
-      <span className="text-sm font-bold">
+    <Card className="cursor-default flex-col justify-between">
+      <span className="font-bold text-sm">
         {drugName} <GetHelp size={14} onClick={() => setModalOpen(true)} />
       </span>
 
@@ -61,7 +61,7 @@ export default function DrugCard({
           />
         ) : null}
 
-        <span className="flex text-xl font-bold underline mt-2">
+        <span className="mt-2 flex font-bold text-xl underline">
           {Math.round(calc(mass, dividend, divisor) * 1000) / 1000}
           {resultLabel}
         </span>

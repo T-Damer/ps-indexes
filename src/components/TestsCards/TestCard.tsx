@@ -34,14 +34,14 @@ export default function ({ id, serial }: { id: string; serial: number }) {
 
   return (
     <Card>
-      <div className="flex flex-col justify-between overflow-hidden w-full">
+      <div className="flex w-full flex-col justify-between overflow-hidden">
         <div
-          className="flex-1 flex flex-col"
+          className="flex flex-1 flex-col"
           onClick={onPress}
           onKeyDown={onPress}
         >
-          <span className="font-bold truncate-2 leading-snug">№{serial}</span>
-          <span className="text-[#00000080] dark:text-[#FFFFFF80] truncate">
+          <span className="truncate-2 font-bold leading-snug">№{serial}</span>
+          <span className="truncate text-[#00000080] dark:text-[#FFFFFF80]">
             {id}
           </span>
         </div>

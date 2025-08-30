@@ -38,16 +38,16 @@ export default function ({
         <Drawer.Description>Modal</Drawer.Description>
         <Drawer.Overlay className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-all will-change-auto" />
         <Drawer.Content
-          className={`flex flex-col rounded-t-3xl bg-base-200 max-h-[98vh] fixed bottom-0 left-0 right-0 mx-auto max-w-prose justify-self-center outline-none ${contentClassName}`}
+          className={`fixed right-0 bottom-0 left-0 mx-auto flex max-h-[98vh] max-w-prose flex-col justify-self-center rounded-t-3xl bg-base-200 outline-none ${contentClassName}`}
         >
           <Drawer.Title className="hidden">Dialog window</Drawer.Title>
-          <Drawer.Handle className="w-12 h-1 mb-1 mt-4" />
-          <Drawer.Close className="w-full flex flex-row items-center justify-end pb-6 pr-4">
+          <Drawer.Handle className="mt-4 mb-1 h-1 w-12" />
+          <Drawer.Close className="flex w-full flex-row items-center justify-end pr-4 pb-6">
             {header(onClose)}
           </Drawer.Close>
 
           <div
-            className={`relative flex flex-col gap-y-4 max-h-[80vh] w-screen max-w-prose px-4 overflow-y-auto ${bodyWrapperClassName}`}
+            className={`relative flex max-h-[80vh] w-screen max-w-prose flex-col gap-y-4 overflow-y-auto px-4 ${bodyWrapperClassName}`}
           >
             {body(onClose)}
           </div>

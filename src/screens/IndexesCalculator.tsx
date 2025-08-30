@@ -7,10 +7,10 @@ import { useAtom } from 'jotai'
 import { useState } from 'preact/hooks'
 
 export default function IndexesCalculator({ id }: { id: string }) {
-  const [tests, setTests] = useAtom(testsDataStore)
+  const [tests, _setTests] = useAtom(testsDataStore)
   const [mass, setMass] = useState(0)
 
-  const bloodSample = tests[id]
+  const _bloodSample = tests[id]
 
   return (
     <div>
@@ -24,7 +24,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
         step="0.01"
       />
 
-      <div className="flex flex-row flex-wrap gap-y-2 mt-2">
+      <div className="mt-2 flex flex-row flex-wrap gap-y-2">
         <DrugCard
           drugName="Актрапид"
           mass={mass}

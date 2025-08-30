@@ -4,7 +4,7 @@ export default function ({ onPress }: { onPress: () => void }) {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 490 490"
       fill="currentColor"
-      className="w-4 h-4 opacity-70 cursor-pointer rounded-xl hover:bg-red-100 p-0.5"
+      className="h-4 w-4 cursor-pointer rounded-xl p-0.5 opacity-70 hover:bg-red-100"
       onClick={onPress}
     >
       <polygon

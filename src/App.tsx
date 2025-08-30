@@ -25,7 +25,7 @@ export default function () {
     window.TelegramWebview
   )
     return (
-      <div className="flex flex-col container prose h-[100dvh] mx-auto justify-center font-bold px-4">
+      <div className="prose container mx-auto flex h-[100dvh] flex-col justify-center px-4 font-bold">
         <p>
           Пожалуйста используйте браузерную версию приложения, телеграм не
           позволяет сохранять файлы
@@ -39,7 +39,7 @@ export default function () {
     )
 
   return (
-    <div className="flex flex-col container prose print:w-full min-h-[100dvh] mx-auto my-5 px-5 md:p-10">
+    <div className="prose container mx-auto my-5 flex min-h-[100dvh] flex-col px-5 md:p-10 print:w-full">
       <Router hook={useHashLocation}>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <Switch>

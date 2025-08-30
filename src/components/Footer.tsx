@@ -2,7 +2,7 @@ export default function () {
   const href = 'https://github.com/T-Damer'
 
   return (
-    <footer className="flex flex-1 h-full justify-center items-end w-full mt-2">
+    <footer className="mt-2 flex h-full w-full flex-1 items-end justify-center">
       <span className="block print:hidden">
         Made by{' '}
         <a href={href} target="_blank" rel="noreferrer">
