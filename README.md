@@ -1,9 +1,6 @@
-# Frontend code for neo-n
+[![Build and deploy app](https://github.com/T-Damer/ps-indexes/actions/workflows/deployflow.yml/badge.svg)](https://github.com/T-Damer/ps-indexes/actions/workflows/deployflow.yml)
 
-Overview:
-
-1. Drugs section - you can calculate drug doses depending on patient's weight
-2. Calculate hearth ultrasound bloodflow
+# Frontend code for ps-indexes
 
 ## Local launch
 
