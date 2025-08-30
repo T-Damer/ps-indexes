@@ -1,19 +1,18 @@
-import { ErrorBoundary } from 'react-error-boundary'
-import { Route, Router, Switch } from 'wouter-preact'
-import { ToastContainer } from 'react-toastify'
-import { useHashLocation } from 'wouter-preact/use-hash-location'
 import ErrorFallback from 'components/ErrorFallback'
 import Footer from 'components/Footer'
-import Main from 'screens/Main'
 import useTheme from 'hooks/useTheme'
-import UltrasoundFlow from 'screens/UltrasoundFlow'
-import DrugsCalculator from 'screens/DrugsCalculator'
+import { ErrorBoundary } from 'react-error-boundary'
+import { ToastContainer } from 'react-toastify'
+import IndexesCalculator from 'screens/IndexesCalculator'
+import Main from 'screens/Main'
+import { Route, Router, Switch } from 'wouter-preact'
+import { useHashLocation } from 'wouter-preact/use-hash-location'
 
 declare global {
   interface Window {
-    TelegramWebviewProxy: any
-    TelegramWebviewProxyProto: any
-    TelegramWebview: any
+    TelegramWebviewProxy: unknown
+    TelegramWebviewProxyProto: unknown
+    TelegramWebview: unknown
   }
 }
 
@@ -44,8 +43,12 @@ export default function () {
       <Router hook={useHashLocation}>
         <ErrorBoundary fallback={<ErrorFallback />}>
           <Switch>
-            <Route path="/ultrasound" component={() => <UltrasoundFlow />} />
-            <Route path="/drugs" component={() => <DrugsCalculator />} />
+            <Route
+              path="/test/:id"
+              component={({ params }: { params: { id: string } }) => (
+                <IndexesCalculator id={params.id} />
+              )}
+            />
             <Route component={Main} />
           </Switch>
           <Footer />

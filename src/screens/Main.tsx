@@ -1,8 +1,8 @@
 import { useAutoAnimate } from '@formkit/auto-animate/preact'
-import { useState } from 'preact/hooks'
 import SearchBar from 'components/SearchBar'
-import { availablePages } from 'types/AvailablePages'
-import AppCard from 'components/AppCard'
+import CreateTestCard from 'components/TestsCards/CreateTestCard'
+import TestsCardList from 'components/TestsCards/TestsCardList'
+import { useState } from 'preact/hooks'
 
 export default function () {
   const [parentRef] = useAutoAnimate()
@@ -10,17 +10,11 @@ export default function () {
 
   return (
     <div>
-      <h1>👶 neoN</h1>
+      <h1>💉 Подсчет Индексов</h1>
       <SearchBar search={search} setSearch={setSearch} />
       <div className="flex flex-wrap" ref={parentRef}>
-        {availablePages.map(({ title, location, icon }) => (
-          <AppCard
-            key={location}
-            title={title}
-            location={location}
-            icon={icon}
-          />
-        ))}
+        <CreateTestCard />
+        <TestsCardList search={search} />
       </div>
     </div>
   )

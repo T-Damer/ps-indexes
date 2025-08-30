@@ -1,8 +1,8 @@
-import { useCallback } from 'preact/hooks'
-import { useHashLocation } from 'wouter-preact/use-hash-location'
 import Card from 'components/Card'
 import scrollTop from 'helpers/scrollTop'
+import { useCallback } from 'preact/hooks'
 import { JSX } from 'preact/jsx-runtime'
+import { useHashLocation } from 'wouter-preact/use-hash-location'
 
 export default function ({
   title,

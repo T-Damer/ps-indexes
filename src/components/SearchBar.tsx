@@ -13,7 +13,7 @@ export default function ({
       <input
         type="text"
         className="grow"
-        placeholder="Поиск приложения"
+        placeholder="Поиск по номеру анализа"
         value={search}
         onInput={(e) => setSearch(e.currentTarget.value)}
       />

@@ -1,7 +1,7 @@
 import Button from 'components/Button'
 import goMain from 'helpers/goMain'
-import ArrowLeft from './Icons/ArrowLeft'
 import { JSX } from 'preact/jsx-runtime'
+import ArrowLeft from './Icons/ArrowLeft'
 
 export default function ({ right }: { right?: JSX.Element }) {
   return (

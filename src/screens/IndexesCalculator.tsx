@@ -1,11 +1,16 @@
 import DetailsHeader from 'components/DetailsHeader'
 import DrugCard from 'components/DrugCard'
 import LabeledInput from 'components/LabeledInput'
+import testsDataStore from 'helpers/atoms/testsDataStore'
 import range from 'helpers/range'
+import { useAtom } from 'jotai'
 import { useState } from 'preact/hooks'
 
-export default function DrugsCalculator() {
+export default function IndexesCalculator({ id }: { id: string }) {
+  const [tests, setTests] = useAtom(testsDataStore)
   const [mass, setMass] = useState(0)
+
+  const bloodSample = tests[id]
 
   return (
     <div>
@@ -242,7 +247,11 @@ export default function DrugsCalculator() {
             <div className="mb-4">
               <p>– Содержание препарата в 1 мл. 0,25 мг (250 мкг)</p>
               <p>– Доза насыщения – 20 мкг/кг/с, доза поддержи 5 мкг/кг/с</p>
-              <img src="img/digoxyni-dose.png" className="my-2" />
+              <img
+                src="img/digoxyni-dose.png"
+                className="my-2"
+                alt="Дозировка дигоксина"
+              />
             </div>
           }
         />

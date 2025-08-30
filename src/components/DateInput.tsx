@@ -1,6 +1,6 @@
-import { OnChange } from 'types/FormEvent'
-import { useRef } from 'preact/hooks'
 import CalendarIcon from 'components/Icons/CalendarIcon'
+import { useRef } from 'preact/hooks'
+import { OnChange } from 'types/FormEvent'
 
 export default function ({
   value,

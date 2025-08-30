@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://t-damer.github.io/neo-n/",
+  "homepage": "https://t-damer.github.io/ps-indexes/",
   "scripts": {
     "start": "vite",
     "build": "cross-env NODE_ENV=production tsc && vite build",
-    "pretty": "prettier --check src",
-    "lint": "yarn pretty && eslint --max-warnings 0 --ext ts,tsx,json src",
+    "biome-check": "biome check",
+    "biome-write": "biome check --write",
     "preview": "yarn build && yarn vite preview"
   },
   "dependencies": {
@@ -18,12 +18,14 @@
     "preact": "^10.25.1",
     "react-error-boundary": "^4.1.2",
     "react-toastify": "^10.0.6",
+    "uuid": "^11.1.0",
     "vaul": "^1.1.2",
     "vite-plugin-pwa": "^0.21.1",
     "wouter-preact": "^3.3.5",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@preact/preset-vite": "^2.9.3",
     "@tailwindcss/typography": "^0.5.15",
     "@types/file-saver": "^2.0.7",

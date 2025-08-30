@@ -13,6 +13,7 @@ export default function ({
 
   return (
     <button
+      type="button"
       className={`btn flex flex-row gap-x-2 *:transition-all ${extractedClassNames} ${className}`}
       onClick={onClick}
       disabled={disabled}

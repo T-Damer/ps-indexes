@@ -9,6 +9,6 @@ export default function range({
 } = {}) {
   return Array.from(
     { length: Math.ceil((end - start) / step) + 1 },
-    (_, i) => ({ value: parseFloat((start + i * step).toFixed(1)) })
+    (_, i) => ({ value: Number.parseFloat((start + i * step).toFixed(1)) })
   )
 }

@@ -1,11 +1,10 @@
 import { useState } from 'preact/hooks'
-import Card from './Card'
-import LabeledInput from './LabeledInput'
-import GetHelp from './Icons/GetHelp'
-import DefaultModal from './DefaultModal'
 import { JSX } from 'preact/jsx-runtime'
-import LabeledSelect from './LabeledSelect'
 import { SelectOption } from 'types/Props'
+import Card from './Card'
+import DefaultModal from './DefaultModal'
+import GetHelp from './Icons/GetHelp'
+import LabeledSelect from './LabeledSelect'
 
 export default function DrugCard({
   drugName,
