@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    types: [synchronize, opened, reopened]
+    types: [synchronize, opened]
 
 jobs:
   build-and-lint-code:
