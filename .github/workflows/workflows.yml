@@ -1,7 +1,11 @@
 name: Build and lint code
+
 on:
+  push:
+    branches: [main]
   pull_request:
-    types: [synchronize, opened]
+    types: [synchronize, opened, reopened]
+
 jobs:
   build-and-lint-code:
     runs-on: ubuntu-latest
@@ -20,4 +24,3 @@ jobs:
         uses: biomejs/setup-biome@v2
       - name: Run Biome
         run: biome ci .
-
