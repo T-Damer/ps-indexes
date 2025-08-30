@@ -1,9 +1,3 @@
 {
-  "recommendations": [
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "bradlc.vscode-tailwindcss",
-    "naumovs.color-highlight",
-    "oderwat.indent-rainbow"
-  ]
+  "recommendations": ["biomejs.biome", "streetsidesoftware.code-spell-checker"]
 }
