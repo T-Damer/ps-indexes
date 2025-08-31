@@ -1,5 +1,6 @@
 import { useState } from 'preact/hooks'
 import { JSX } from 'preact/jsx-runtime'
+import BloodSample from 'types/BloodSample'
 import { SelectOption } from 'types/Props'
 import Card from './Card'
 import DefaultModal from './DefaultModal'
@@ -8,22 +9,22 @@ import LabeledSelect from './LabeledSelect'
 
 export default function SampleCard({
   sampleName,
-  mass,
+  bloodSample,
   extraDividend,
   dividendOptions,
   divisorOptions,
   extraDivisor,
   calc,
   modalBody,
-  resultLabel = ' (мг)',
+  resultLabel = '',
 }: {
   sampleName: string
-  mass: number
+  bloodSample?: BloodSample
   extraDividend?: string
   dividendOptions?: SelectOption[]
   extraDivisor?: string
   divisorOptions?: SelectOption[]
-  calc: (mass: number, dividend: number, divisor: number) => number
+  calc: (dividend: number, divisor: number, bloodSample?: BloodSample) => number
   resultLabel?: string
   modalBody: JSX.Element
 }) {
@@ -62,7 +63,7 @@ export default function SampleCard({
         ) : null}
 
         <span className="mt-2 flex font-bold text-xl underline">
-          {Math.round(calc(mass, dividend, divisor) * 1000) / 1000}
+          {Math.round(calc(dividend, divisor, bloodSample) * 1000) / 1000}
           {resultLabel}
         </span>
       </div>

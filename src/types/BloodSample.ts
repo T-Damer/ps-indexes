@@ -27,11 +27,19 @@ type Header = { header: { value: string } }
 type SampleData = {
   [key: string]: CommonContent
 }
+type OutputData = {
+  [key: string]: {
+    title: string
+    absolute: string
+    relative: string
+  }
+}
 export type CommonData = Header & { [key: string]: CommonContent }
 
 export default class BloodSample {
   serial: number
   inputs: SampleData
+  outputs: OutputData
 
   constructor(serial: number) {
     this.serial = serial
@@ -84,7 +92,24 @@ export default class BloodSample {
         title: 'Гематокрит',
       },
     }
+    this.outputs = {
+      lymphocyteIndex: {
+        title: 'Лимфоцитарный индекс (ЛИ)',
+        absolute: 'absolute lymphocytes / absolute neutrophils',
+        relative: 'relative lymphocytes / relative neutrophils',
+      },
+    }
   }
 }
 
 export type AvailableSections = keyof BloodSample
+
+export const getValue = (bloodSample: BloodSample, key: string): number => {
+  return Number(bloodSample?.inputs?.[key]?.value) || 0
+}
+
+export const getLymphocyteIndex = (bloodSample: BloodSample): number => {
+  const lymphocytes = getValue(bloodSample, 'lymphocytes')
+  const neutrophils = getValue(bloodSample, 'neutrophils')
+  return neutrophils > 0 ? lymphocytes / neutrophils : 0
+}
