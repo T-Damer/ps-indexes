@@ -6,7 +6,7 @@ import { useState } from 'preact/hooks'
 
 export default function () {
   const [parentRef] = useAutoAnimate()
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState<number | undefined>()
 
   return (
     <div>

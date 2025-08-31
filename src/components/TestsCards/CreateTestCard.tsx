@@ -4,36 +4,41 @@ import HumanIcon from 'components/Icons/HumanIcon'
 import testsDataStore from 'helpers/atoms/testsDataStore'
 import handleError from 'helpers/handleError'
 import importXlsxPatient from 'helpers/xlsx/importXlsxPatient'
-import { useSetAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import { useCallback, useMemo, useState } from 'preact/hooks'
 import BloodSample from 'types/BloodSample'
 import ButtonTypes from 'types/Button'
 import { v4 } from 'uuid'
 
-function AddPatientForm() {
-  const [historySerial, setHistorySerial] = useState<number | undefined>()
-  const setTestsData = useSetAtom(testsDataStore)
+function AddCard() {
+  const [testSerial, setTestSerial] = useState<number | undefined>()
+  const [testData, setTestsData] = useAtom(testsDataStore)
 
   const clearData = useCallback(() => {
-    setHistorySerial(undefined)
+    setTestSerial(undefined)
   }, [])
 
   const onSubmit = useCallback(() => {
-    if (!historySerial) {
-      const e = 'Нет серийного номера истории'
+    if (!testSerial) {
+      const e = 'Нет серийного номера анализа'
+      handleError({ e, toastMessage: e })
+      return
+    }
+    if (Object.values(testData).some(({ serial }) => serial === testSerial)) {
+      const e = 'Анализ с таким номером уже существует'
       handleError({ e, toastMessage: e })
       return
     }
 
     setTestsData((prevData) => ({
       ...prevData,
-      [v4()]: new BloodSample(historySerial),
+      [v4()]: new BloodSample(testSerial),
     }))
 
     clearData()
-  }, [historySerial, setTestsData, clearData])
+  }, [testSerial, setTestsData, clearData])
 
-  const disabled = useMemo(() => !historySerial, [historySerial])
+  const disabled = useMemo(() => !testSerial, [testSerial])
 
   return (
     <div className="flex flex-col justify-center gap-2">
@@ -44,8 +49,8 @@ function AddPatientForm() {
           step="1"
           placeholder="№ Анализа"
           className="grow"
-          onInput={(e) => setHistorySerial(e.currentTarget.valueAsNumber)}
-          value={historySerial || ''}
+          onInput={(e) => setTestSerial(e.currentTarget.valueAsNumber)}
+          value={testSerial || ''}
           required
         />
         <HumanIcon />
@@ -74,7 +79,7 @@ function AddPatientForm() {
   )
 }
 
-function ImportPatient() {
+function ImportBloodSample() {
   const setTests = useSetAtom(testsDataStore)
   const [parsedResult, setParsedResult] = useState<BloodSample | null>(null)
   const onClick = useCallback(() => {
@@ -111,14 +116,14 @@ function ImportPatient() {
   )
 }
 
-export default function () {
+export default function CreateTestCard() {
   return (
     <div className="flex w-full flex-col gap-2 sm:flex-row">
       <Card dashedOutline>
-        <AddPatientForm />
+        <AddCard />
       </Card>
       <Card dashedOutline>
-        <ImportPatient />
+        <ImportBloodSample />
       </Card>
     </div>
   )

@@ -5,19 +5,24 @@ export default function ({
   search,
   setSearch,
 }: {
-  search?: string
-  setSearch: (s: string) => void
+  search?: number | undefined
+  setSearch: (s: number | undefined) => void
 }) {
   return (
     <label className="input input-bordered m-1 flex items-center gap-2">
       <input
-        type="text"
+        type="number"
         className="grow"
         placeholder="Поиск по номеру анализа"
+        step="1"
         value={search}
-        onInput={(e) => setSearch(e.currentTarget.value)}
+        onInput={(e) => setSearch(e.currentTarget.valueAsNumber)}
       />
-      {search ? <CrossIcon onPress={() => setSearch('')} /> : <SearchIcon />}
+      {search ? (
+        <CrossIcon onPress={() => setSearch(undefined)} />
+      ) : (
+        <SearchIcon />
+      )}
     </label>
   )
 }

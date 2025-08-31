@@ -1,5 +1,10 @@
-const options = [0, 1]
-const value = 0
+const commonInput = {
+  value: 0,
+  min: 0,
+  step: 0.01,
+  type: 'number' as InputType,
+  placeholder: 'Абсолютное число',
+}
 
 // we can't store Date in localstore, it will convert into string
 // so we use string types from <input type="" />
@@ -7,135 +12,76 @@ const value = 0
 export type InputType = 'number' | 'date' | 'time' | 'string'
 export type PlainValue = number | string | undefined
 type InputObject = {
-  value?: PlainValue
+  title: string
+  value: PlainValue
   step?: number
-  title?: string
   placeholder?: string
-  type?: InputType
+  type: InputType
+  min?: number
 }
 type Options = { options: number[] | string[] }
 
 export type CommonContent = InputObject & Partial<Options>
 
 type Header = { header: { value: string } }
-type PassportData = Header & {
-  historySerial: { value: number; type: InputType; title: string }
+type SampleData = {
   [key: string]: CommonContent
 }
 export type CommonData = Header & { [key: string]: CommonContent }
 
 export default class BloodSample {
-  passport: Header & PassportData
+  serial: number
+  inputs: SampleData
 
-  constructor(historySerial: number) {
-    this.passport = {
-      header: { value: 'Паспортная часть' },
-      historySerial: {
-        value: historySerial,
-        type: 'number',
-        title: '№ Анализа',
+  constructor(serial: number) {
+    this.serial = serial
+    this.inputs = {
+      lymphocytes: {
+        ...commonInput,
+        title: 'Лимфоциты',
       },
-      receiptDate: {
-        type: 'date',
-        title: 'Дата поступления',
+      neutrophils: {
+        ...commonInput,
+        title: 'Нейтрофилы',
       },
-      dischargeDate: {
-        type: 'date',
-        title: 'Дата выписки',
+      monocytes: {
+        ...commonInput,
+        title: 'Моноциты',
       },
-      admissionDiagnosis: {
-        title: 'Диагноз при поступлении',
-        placeholder: 'Б 30-31 нед, гес. ХВГП. Дифф.токс.зоб',
+      eosinophils: {
+        ...commonInput,
+        title: 'Эозинофилы',
       },
-      dateClinicalDiagnosis1: {
-        type: 'date',
-        title: 'Дата первого клинического диагноза',
+      basophils: {
+        ...commonInput,
+        title: 'Базофилы',
       },
-      clinicalDiagnosis1: {
-        title: 'Первый клинический дагноз',
-        placeholder:
-          'Б 30-31 нед, гес. ХВГП. ОСА (хр.пиелонеф) Дифф.токс.зоб.ОГА (НМЦ,эндометриоз)',
+      leukocytes: {
+        ...commonInput,
+        title: 'Лейкоциты',
       },
-      dateClinicalDiagnosis2: {
-        type: 'date',
-        title: 'Дата второго клинического диагноза',
+      esr: {
+        ...commonInput,
+        placeholder: 'Относительно (%)',
+        title: 'СОЭ',
       },
-      clinicalDiagnosis2: {
-        title: 'Второй клинический диагноз',
-        placeholder:
-          'Роды 2,срочные,патологические.рубцовая деформация ш/м ХФПН.ХВГП.Гестоз(о),ср.ст.тяж',
+      platelets: {
+        ...commonInput,
+        title: 'Тромбоциты',
       },
-      dateFinalDiagnosis: {
-        type: 'date',
-        title: 'Дата заключительного диагноза',
+      plateletcrit: {
+        ...commonInput,
+        placeholder: 'Относительно (%)',
+        title: 'Тромбокрит',
       },
-      finalDiagnosis: {
-        title: 'Заключительный диагноз',
-        placeholder:
-          'Р1, преждевременные ,31 нед, пат, путем кес.сеч., гес. ХВГП. Дифф.токс.зоб',
+      hgb: {
+        ...commonInput,
+        title: 'Гемоглобин',
       },
-      age: {
-        type: 'number',
-        title: 'Возраст',
-      },
-      bloodType: {
-        type: 'number',
-        options: ['O (I)', 'A (II)', 'B (III)', 'AB (IV)'],
-        title: 'Группа крови',
-        value: 'O (I)',
-      },
-      Rh: {
-        options: ['(+)', '(-)'],
-        title: 'Резус фактор',
-        value: '(+)',
-      },
-      height: {
-        type: 'number',
-        title: 'Рост матери',
-        step: 0.1,
-      },
-      weight: {
-        type: 'number',
-        title: 'Вес матери',
-        step: 0.1,
-      },
-      worksAt: {
-        title: 'Работа',
-        placeholder: 'Преподаватель',
-      },
-      livingConditions: {
-        title: 'Социально-бытовые условия',
-        options,
-        value,
-      },
-      badHabits: {
-        title: 'Вредные привычки',
-        options,
-        value,
-      },
-      drugs: {
-        title: 'Лекарства',
-      },
-      complicatedSomaticHistory: {
-        title: 'Отягощенный Соматический Анамнез (ОСА)',
-        placeholder:
-          'ОРВИ, грипп, ангины, 1977-операция на баталловом протоке, хр.гастрит',
-      },
-      complicatedGynecologyHistory: {
-        title: 'Отягощенный Гинекологический Анамнез (ОГА)',
-        placeholder: 'Эрозия шейки матки',
-      },
-      complicatedObstetricsHistory: {
-        title: 'Отягощенный Акушерский Анамнез (ОАА)',
-        type: 'number',
-      },
-      allergy: {
-        title: 'Аллергологический анамнез',
-        type: 'number',
-      },
-      genetics: {
-        title: 'Генетические заболевания в семье',
-        type: 'number',
+      hct: {
+        ...commonInput,
+        placeholder: 'Относительно (%)',
+        title: 'Гематокрит',
       },
     }
   }

@@ -2,25 +2,14 @@ import TestCard from 'components/TestsCards/TestCard'
 import testsDataStore from 'helpers/atoms/testsDataStore'
 import { useAtomValue } from 'jotai'
 
-export default function ({ search }: { search?: string }) {
+export default function ({ search }: { search?: number | undefined }) {
   const tests = useAtomValue(testsDataStore)
 
   const cards = Object.entries(tests)
     .reverse()
-    .map(([id, data], index) => {
-      if (
-        !search ||
-        String(data.passport.historySerial.value)
-          .toLowerCase()
-          .includes(search.toLowerCase())
-      )
-        return (
-          <TestCard
-            id={id}
-            serial={data.passport.historySerial.value}
-            key={id}
-          />
-        )
+    .map(([id, data]) => {
+      if (!search || data.serial === search)
+        return <TestCard id={id} serial={data.serial} key={id} />
     })
 
   return <>{cards}</>

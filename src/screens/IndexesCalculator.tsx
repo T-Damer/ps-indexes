@@ -1,32 +1,59 @@
 import DetailsHeader from 'components/DetailsHeader'
-import DrugCard from 'components/DrugCard'
 import LabeledInput from 'components/LabeledInput'
+import DrugCard from 'components/SampleCard'
 import testsDataStore from 'helpers/atoms/testsDataStore'
+import handleError from 'helpers/handleError'
 import range from 'helpers/range'
 import { useAtom } from 'jotai'
 import { useState } from 'preact/hooks'
+import { navigate } from 'wouter-preact/use-hash-location'
 
 export default function IndexesCalculator({ id }: { id: string }) {
-  const [tests, _setTests] = useAtom(testsDataStore)
-  const [mass, setMass] = useState(0)
+  const [tests, setTests] = useAtom(testsDataStore)
 
-  const _bloodSample = tests[id]
+  const bloodSample = tests[id]
+
+  if (!bloodSample) {
+    const e = 'Анализ не найден'
+    handleError({ e, toastMessage: e })
+    navigate('/')
+    return
+  }
+
+  const mass = 0
 
   return (
     <div>
       <DetailsHeader />
 
-      <LabeledInput
-        type="number"
-        label="Масса тела (кг)"
-        value={mass}
-        onInput={(e) => setMass(e.currentTarget.valueAsNumber || 0)}
-        step="0.01"
-      />
+      {Object.values(bloodSample.inputs).map((input) => (
+        <LabeledInput
+          label={input.title}
+          value={input.value}
+          step={input.step}
+          placeholder={input.placeholder}
+          min={input.min}
+          type={input.type}
+          onInput={(e) => {
+            const newValue = e.currentTarget.valueAsNumber || 0
+            console.log(newValue)
+            setTests((prev) => ({
+              ...prev,
+              [id]: {
+                ...prev[id],
+                [input.title]: {
+                  // ...prev[id][input.title],
+                  value: newValue,
+                },
+              },
+            }))
+          }}
+        />
+      ))}
 
       <div className="mt-2 flex flex-row flex-wrap gap-y-2">
         <DrugCard
-          drugName="Актрапид"
+          sampleName="Актрапид"
           mass={mass}
           extraDividend="Желаемая дозировка (ед/кг/ч)"
           dividendOptions={[{ value: 0.05 }, { value: 0.1 }]}
@@ -51,153 +78,9 @@ export default function IndexesCalculator({ id }: { id: string }) {
             </div>
           }
         />
-        <DrugCard
-          drugName="Допамин 4%"
-          mass={mass}
-          calc={(mass) => (mass * 5 * 1440) / 40000}
-          modalBody={
-            <div className="mb-4">
-              <p>– Количество физиологического раствора – добавить до 12 мл</p>
-              <p>
-                – Скорость введения 0,1 мл/ч соответствует дозе 1 мкг/кг/мин
-              </p>
-            </div>
-          }
-        />
-        <DrugCard
-          drugName="Добутамин 1.25%"
-          mass={mass}
-          calc={(mass) => (mass * 5 * 1440) / 12500}
-          modalBody={
-            <div className="mb-4">
-              <p>– Количество физиологического раствора – добавить до 12 мл.</p>
-              <p>
-                – Скорость введения 0,1 мл/ч соответствует дозе 1 мкг/кг/мин.
-              </p>
-            </div>
-          }
-        />
 
         <DrugCard
-          drugName="Адреналин 0.1%"
-          mass={mass}
-          calc={(mass) => (mass * 0.5 * 1440) / 1000}
-          modalBody={
-            <div className="mb-4">
-              <p>– Количество физиологического раствора – добавить до 12 мл.</p>
-              <p>
-                – Скорость введения 0,1 мл/ч соответствует дозе 0,1 мкг/кг/мин.
-              </p>
-            </div>
-          }
-        />
-
-        <DrugCard
-          drugName="Норадреналин 0.2%"
-          mass={mass}
-          calc={(mass) => (mass * 0.5 * 1440) / 2000}
-          modalBody={
-            <div className="mb-4">
-              <p>– Количество Глюкоза 5% – добавить до 12 мл.</p>
-              <p>
-                – Скорость введения 0,1 мл/ч соответствует дозе 0,1 мкг/кг/мин.
-              </p>
-            </div>
-          }
-        />
-
-        <DrugCard
-          resultLabel=" доза (мл)"
-          drugName="Эсмолол(Бревиблок) 10мг/1мл"
-          mass={mass}
-          calc={(mass) => (mass * 50 * 1440) / 10000}
-          modalBody={
-            <div className="mb-4">
-              <p>– Разводим NaCl 0,9% до 12,0</p>
-              <p>– Скорость 0,1 мл/ч соответствует 10 мкг/кг/мин</p>
-              <p>
-                – Начальная доза 5-10 мкг/кг/мин. Терапевтическая доза 50-100
-                мкг/кг/мин
-              </p>
-              <p>
-                – Инфузия Бревиблока предпочтительно в ЦВК, необходимо
-                поддерживать постоянную скорость инфузионной терапии
-              </p>
-            </div>
-          }
-        />
-
-        <DrugCard
-          drugName="Симдакс(Левосимендан) 2,5мг/мл"
-          mass={mass}
-          calc={(mass) => (mass * 0.5 * 1440) / 2500}
-          modalBody={
-            <div className="mb-4">
-              <p>– Содержание препарата 2500 мкг в 1 мл.</p>
-              <p>– Разводим Глюкозу 5% до 12,0.</p>
-              <p>– Скорость 0,1 мл/ч соответствует 0,1 мкг/кг/мин.</p>
-              <p>
-                – Начальная доза 0,1 мкг/кг/мин. Терапевтическая доза 0,1-0,2
-                мкг/кг/мин.
-              </p>
-              <p>
-                – Инфузия Симдакса предпочтительно в ЦВК, необходимо
-                поддерживать. постоянную скорость инфузионной терапии
-              </p>
-            </div>
-          }
-        />
-
-        <DrugCard
-          drugName="Фентанил 0,005%"
-          mass={mass}
-          calc={(mass) => (mass * 5 * 24) / 50}
-          modalBody={
-            <div className="mb-4">
-              <p>– Содержание препарата 50 мкг в 1 мл.</p>
-              <p>– Количество физиологического раствора – добавить до 12 мл.</p>
-              <p>– Скорость введения 0,1 мл/ч соответствует дозе 1 мкг/кг/ч.</p>
-              <p>– Обычная доза – 3-5 мкг/кг/ч</p>
-            </div>
-          }
-        />
-
-        <DrugCard
-          drugName="Морфин 1%"
-          mass={mass}
-          calc={(mass) => (mass * 20 * 24) / 10000}
-          modalBody={
-            <div className="mb-4">
-              <p>– Содержание препарата в 1 мл. 10 000 мкг.</p>
-              <p>– Количество физиологического раствора – добавить до 12 мл.</p>
-              <p>
-                – Скорость введения 0,5 мл/ч соответствует дозе 20 мкг/кг/ч.
-              </p>
-              <p>– Доза насыщения – 100-150 мкг/кг/ч.</p>
-              <p>– Обычная доза – 10-20 мкг/кг/ч.</p>
-            </div>
-          }
-        />
-
-        <DrugCard
-          drugName="Sol. Na Oxybati 20%"
-          mass={mass}
-          calc={(mass) => (mass * 10 * 24) / 200}
-          modalBody={
-            <div className="mb-4">
-              <p>
-                – – Количество физиологического раствора – добавить до 12 мл.
-              </p>
-              <p>
-                – Скорость введения 0,5 мл/ч соответствует дозе 10 (20) мг/кг/ч.
-              </p>
-              <p>– Обычная доза – 10-20 мг/кг/ч.</p>
-            </div>
-          }
-        />
-
-        <DrugCard
-          drugName="Промедол 1% или 2%"
+          sampleName="Промедол 1% или 2%"
           mass={mass}
           calc={(mass, dividend, divisor) => (mass * dividend * 24) / divisor}
           extraDividend="Доза (мг/кг/ч)"
@@ -228,7 +111,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
         />
 
         <DrugCard
-          drugName="Дигоксин 0,025%"
+          sampleName="Дигоксин 0,025%"
           mass={mass}
           calc={(mass, dividend) => (mass * dividend * 24) / 10}
           extraDividend="Доза (мкг/кг)"
@@ -257,7 +140,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
         />
 
         <DrugCard
-          drugName="Унитиол 1 мл – 50 мг"
+          sampleName="Унитиол 1 мл – 50 мг"
           mass={mass}
           calc={(mass) => mass * 5}
           modalBody={
@@ -268,7 +151,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
         />
 
         <DrugCard
-          drugName="Вазапростан (Алпростадил)"
+          sampleName="Вазапростан (Алпростадил)"
           mass={mass}
           calc={(mass, dividend) => mass * dividend}
           extraDividend="Доза 0,005–0,05 мкг/кг/мин"
@@ -296,7 +179,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
         />
 
         <DrugCard
-          drugName="Эсмерон 1%"
+          sampleName="Эсмерон 1%"
           mass={mass}
           calc={(mass) => (mass * 0.6 * 24) / 10}
           extraDividend="Доза 0,005–0,05 мкг/кг/мин"
@@ -323,7 +206,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
         />
 
         <DrugCard
-          drugName="Гидрокарбонат натрия (NaHCO3)"
+          sampleName="Гидрокарбонат натрия (NaHCO3)"
           mass={mass}
           calc={(mass, dividend, divisor) => (dividend * mass * 0.3) / divisor}
           extraDividend="Дефицит оснований (BE), ммоль/л"
@@ -345,7 +228,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
         />
 
         <DrugCard
-          drugName="Глюкозо-инсулиновая инфузия"
+          sampleName="Глюкозо-инсулиновая инфузия"
           mass={mass}
           calc={(mass) => mass * 5}
           resultLabel=" (мл) Глюкозы 10% + 0,2ЕД инсулина"
@@ -358,7 +241,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
         />
 
         <DrugCard
-          drugName="Канеовит (Витамин К)"
+          sampleName="Канеовит (Витамин К)"
           mass={mass}
           calc={(mass) => (mass > 2.5 ? 0.1 : 0.04 * mass)}
           modalBody={

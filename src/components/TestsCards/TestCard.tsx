@@ -8,7 +8,13 @@ import { useCallback } from 'preact/hooks'
 import { v4 } from 'uuid'
 import { useHashLocation } from 'wouter-preact/use-hash-location'
 
-export default function ({ id, serial }: { id: string; serial: number }) {
+export default function TestCard({
+  id,
+  serial,
+}: {
+  id: string
+  serial: number
+}) {
   const [tests, setTests] = useAtom(testsDataStore)
   const [, setLocation] = useHashLocation()
 

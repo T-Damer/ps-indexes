@@ -6,8 +6,8 @@ import DefaultModal from './DefaultModal'
 import GetHelp from './Icons/GetHelp'
 import LabeledSelect from './LabeledSelect'
 
-export default function DrugCard({
-  drugName,
+export default function SampleCard({
+  sampleName,
   mass,
   extraDividend,
   dividendOptions,
@@ -17,7 +17,7 @@ export default function DrugCard({
   modalBody,
   resultLabel = ' (мг)',
 }: {
-  drugName: string
+  sampleName: string
   mass: number
   extraDividend?: string
   dividendOptions?: SelectOption[]
@@ -36,7 +36,7 @@ export default function DrugCard({
   return (
     <Card className="cursor-default flex-col justify-between">
       <span className="font-bold text-sm">
-        {drugName} <GetHelp size={14} onClick={() => setModalOpen(true)} />
+        {sampleName} <GetHelp size={14} onClick={() => setModalOpen(true)} />
       </span>
 
       <div>
