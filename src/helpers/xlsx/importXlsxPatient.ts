@@ -39,7 +39,7 @@ export default async function (
         for (const fieldKey in section) {
           const field = section[fieldKey]
           if ('title' in field && field.title === title) {
-            field.value = value
+            field.title = value
             break
           }
         }
