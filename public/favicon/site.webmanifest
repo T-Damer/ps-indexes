@@ -1,6 +1,6 @@
 {
-  "name": "Подсчет индексов",
-  "short_name": "indexes",
+  "name": "Indexes",
+  "short_name": "Indexes",
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
+  "theme_color": "#3b5067",
+  "background_color": "#3b5067",
   "display": "standalone"
 }
