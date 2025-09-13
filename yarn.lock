@@ -6905,51 +6905,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"neo-n@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "neo-n@workspace:."
-  dependencies:
-    "@biomejs/biome": "npm:2.0.0"
-    "@formkit/auto-animate": "npm:^0.8.2"
-    "@preact/preset-vite": "npm:^2.9.3"
-    "@tailwindcss/typography": "npm:^0.5.15"
-    "@types/file-saver": "npm:^2.0.7"
-    "@types/node": "npm:^22.10.1"
-    "@typescript-eslint/eslint-plugin": "npm:^8.18.0"
-    "@typescript-eslint/parser": "npm:^8.18.0"
-    "@vitejs/plugin-react": "npm:^4.3.4"
-    autoprefixer: "npm:^10.4.20"
-    cross-env: "npm:^7.0.3"
-    daisyui: "npm:^4.12.20"
-    eslint: "npm:^9.16.0"
-    eslint-config-prettier: "npm:^9.1.0"
-    eslint-plugin-import: "npm:^2.31.0"
-    eslint-plugin-no-relative-import-paths: "npm:^1.5.5"
-    eslint-plugin-prettier: "npm:^5.2.1"
-    eslint-plugin-react: "npm:^7.37.2"
-    eslint-plugin-react-hooks: "npm:^5.1.0"
-    eslint-plugin-sort-imports-es6-autofix: "npm:^0.6.0"
-    file-saver: "npm:^2.0.5"
-    jotai: "npm:^2.10.3"
-    postcss: "npm:^8.4.49"
-    preact: "npm:^10.25.1"
-    prettier: "npm:^3.4.2"
-    react-error-boundary: "npm:^4.1.2"
-    react-toastify: "npm:^10.0.6"
-    rollup-plugin-visualizer: "npm:^5.12.0"
-    tailwindcss: "npm:^3.4.16"
-    ts-node: "npm:^10.9.2"
-    typescript: "npm:^5.7.2"
-    uuid: "npm:^11.1.0"
-    vaul: "npm:^1.1.2"
-    vite: "npm:^6.0.3"
-    vite-plugin-pwa: "npm:^0.21.1"
-    vite-tsconfig-paths: "npm:^5.1.4"
-    wouter-preact: "npm:^3.3.5"
-    xlsx: "npm:^0.18.5"
-  languageName: unknown
-  linkType: soft
-
 "node-gyp@npm:latest":
   version: 8.4.1
   resolution: "node-gyp@npm:8.4.1"
@@ -7511,6 +7466,51 @@ __metadata:
   checksum: 10c0/59ece7ca2fb9838031d73a48d4becb9a7cc1ed10e610517c7d8f19a1e02fa47f7c27d557d8a5702bec3cfeccddc853579832b43f449e54635803f277b1c78077
   languageName: node
   linkType: hard
+
+"ps-indexes@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "ps-indexes@workspace:."
+  dependencies:
+    "@biomejs/biome": "npm:2.0.0"
+    "@formkit/auto-animate": "npm:^0.8.2"
+    "@preact/preset-vite": "npm:^2.9.3"
+    "@tailwindcss/typography": "npm:^0.5.15"
+    "@types/file-saver": "npm:^2.0.7"
+    "@types/node": "npm:^22.10.1"
+    "@typescript-eslint/eslint-plugin": "npm:^8.18.0"
+    "@typescript-eslint/parser": "npm:^8.18.0"
+    "@vitejs/plugin-react": "npm:^4.3.4"
+    autoprefixer: "npm:^10.4.20"
+    cross-env: "npm:^7.0.3"
+    daisyui: "npm:^4.12.20"
+    eslint: "npm:^9.16.0"
+    eslint-config-prettier: "npm:^9.1.0"
+    eslint-plugin-import: "npm:^2.31.0"
+    eslint-plugin-no-relative-import-paths: "npm:^1.5.5"
+    eslint-plugin-prettier: "npm:^5.2.1"
+    eslint-plugin-react: "npm:^7.37.2"
+    eslint-plugin-react-hooks: "npm:^5.1.0"
+    eslint-plugin-sort-imports-es6-autofix: "npm:^0.6.0"
+    file-saver: "npm:^2.0.5"
+    jotai: "npm:^2.10.3"
+    postcss: "npm:^8.4.49"
+    preact: "npm:^10.25.1"
+    prettier: "npm:^3.4.2"
+    react-error-boundary: "npm:^4.1.2"
+    react-toastify: "npm:^10.0.6"
+    rollup-plugin-visualizer: "npm:^5.12.0"
+    tailwindcss: "npm:^3.4.16"
+    ts-node: "npm:^10.9.2"
+    typescript: "npm:^5.7.2"
+    uuid: "npm:^11.1.0"
+    vaul: "npm:^1.1.2"
+    vite: "npm:^6.0.3"
+    vite-plugin-pwa: "npm:^0.21.1"
+    vite-tsconfig-paths: "npm:^5.1.4"
+    wouter-preact: "npm:^3.3.5"
+    xlsx: "npm:^0.18.5"
+  languageName: unknown
+  linkType: soft
 
 "punycode@npm:^2.1.0":
   version: 2.1.1
