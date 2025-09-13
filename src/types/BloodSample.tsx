@@ -313,7 +313,7 @@ export const formulas: OutputData = {
     ),
   },
   systemImmunoinflammatoryIndex: {
-    title: 'системный иммуновоспалительный индекс (SII)',
+    title: 'Cистемный иммуновоспалительный индекс (SII)',
     calc: (s: BloodSample) => {
       const plat = getValue(s, 'platelets')
       const neu = getValue(s, 'neutrophils')

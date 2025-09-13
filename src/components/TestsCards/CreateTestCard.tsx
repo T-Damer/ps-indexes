@@ -3,8 +3,7 @@ import Card from 'components/Card'
 import HumanIcon from 'components/Icons/HumanIcon'
 import testsDataStore from 'helpers/atoms/testsDataStore'
 import handleError from 'helpers/handleError'
-import importXlsxPatient from 'helpers/xlsx/importXlsxPatient'
-import { useAtom, useSetAtom } from 'jotai'
+import { useAtom } from 'jotai'
 import { useCallback, useMemo, useState } from 'preact/hooks'
 import BloodSample from 'types/BloodSample'
 import ButtonTypes from 'types/Button'
@@ -79,52 +78,13 @@ function AddCard() {
   )
 }
 
-function ImportBloodSample() {
-  const setTests = useSetAtom(testsDataStore)
-  const [parsedResult, setParsedResult] = useState<BloodSample | null>(null)
-  const onClick = useCallback(() => {
-    if (!parsedResult) return
-
-    const rand = v4()
-
-    setTests((prev) => ({
-      ...prev,
-      [rand]: parsedResult,
-    }))
-  }, [parsedResult, setTests])
-
-  return (
-    <div className="flex flex-col justify-center gap-2">
-      <input
-        type="file"
-        accept=".xls,.xlsx"
-        class="file-input file-input-bordered w-full"
-        onInput={async (e) => {
-          const newPatient = await importXlsxPatient(e)
-          if (!newPatient) return
-          setParsedResult(newPatient)
-        }}
-      />
-      <Button
-        buttonType={ButtonTypes.success}
-        onClick={onClick}
-        disabled={!parsedResult}
-      >
-        Загрузить
-      </Button>
-    </div>
-  )
-}
-
 export default function CreateTestCard() {
   return (
     <div className="flex w-full flex-col gap-2 sm:flex-row">
-      <Card dashedOutline>
+      <Card dashedOutline disabledHover>
         <AddCard />
       </Card>
-      <Card dashedOutline>
-        <ImportBloodSample />
-      </Card>
+      {/* <ImportSample /> */}
     </div>
   )
 }

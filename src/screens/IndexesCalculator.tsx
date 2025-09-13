@@ -53,14 +53,16 @@ export default function IndexesCalculator({ id }: { id: string }) {
             placeholder={input.placeholder}
             min={input.min}
             type={input.type}
-            aria-errormessage={
-              input.range && input.value !== 0
-                ? Number(input.value) > input.range.max ||
-                  Number(input.value) < input.range.min
-                  ? 'Значение вне допустимого диапазона'
-                  : undefined
-                : undefined
-            }
+            data-isLow={Boolean(
+              input.range &&
+                input.value !== 0 &&
+                Number(input.value) < input.range.min
+            )}
+            data-isHigh={Boolean(
+              input.range &&
+                input.value !== 0 &&
+                Number(input.value) > input.range.max
+            )}
             onInput={(e) => {
               const newValue = e.currentTarget.valueAsNumber || 0
               updateInputValue(key, newValue)

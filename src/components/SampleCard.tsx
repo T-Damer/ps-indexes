@@ -28,9 +28,13 @@ export default function SampleCard({
 
   const calcRes = calc(bloodSample)
   const formattedRes = formatNumber(calcRes)
+  const hasValue = formattedRes !== '-' && calcRes !== 0
 
   return (
-    <Card className="cursor-default flex-col justify-between">
+    <Card
+      className="cursor-default flex-col justify-between"
+      onPress={() => setModalOpen(true)}
+    >
       <span className="font-bold text-sm">
         {sampleName} <GetHelp size={14} onClick={() => setModalOpen(true)} />
       </span>
@@ -38,10 +42,12 @@ export default function SampleCard({
       <div>
         <span
           className={clsx('mt-2 flex font-bold text-xl underline', {
-            'text-red-400':
-              formattedRes !== '-' &&
-              calcRes !== 0 &&
-              (calcRes > normalRange.max || calcRes < normalRange.min),
+            'text-error': hasValue && calcRes > normalRange.max,
+            'text-warning': hasValue && calcRes < normalRange.min,
+            'text-success':
+              hasValue &&
+              calcRes >= normalRange.min &&
+              calcRes <= normalRange.max,
           })}
         >
           {formattedRes}

@@ -1,15 +1,20 @@
+import clsx from 'clsx'
 import { InputHTMLAttributes } from 'preact/compat'
 import { ClassName } from 'types/Props'
+
+type CustomInputProps = {
+  labelClassName?: ClassName
+  label?: string
+  'data-isLow'?: boolean
+  'data-isHigh'?: boolean
+}
 
 export default function LabeledInput({
   label,
   className,
   labelClassName,
   ...inputProps
-}: {
-  labelClassName?: ClassName
-  label?: string
-} & InputHTMLAttributes<HTMLInputElement>) {
+}: InputHTMLAttributes<HTMLInputElement> & CustomInputProps) {
   return (
     <label className="form-control w-full">
       <div className="label">
@@ -17,10 +22,14 @@ export default function LabeledInput({
       </div>
       <input
         {...inputProps}
-        className={`input input-bordered w-full ${className}`}
-        style={{
-          color: inputProps['aria-errormessage'] ? '#f87171' : undefined,
-        }}
+        className={clsx('input input-bordered w-full', className, {
+          'input-error': inputProps['data-isHigh'],
+          'input-warning': inputProps['data-isLow'],
+          'input-success':
+            inputProps.value !== 0 &&
+            !inputProps['data-isLow'] &&
+            !inputProps['data-isHigh'],
+        })}
       />
     </label>
   )
