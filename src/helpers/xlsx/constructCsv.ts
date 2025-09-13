@@ -1,5 +1,5 @@
 import type BloodSample from 'types/BloodSample'
-import type { CommonContent } from 'types/BloodSample'
+import { formulas } from 'types/BloodSample'
 
 // before converting we need only: title and value, no need for header, keys and stuff
 // Store as:
@@ -7,21 +7,29 @@ import type { CommonContent } from 'types/BloodSample'
 // value1, value2
 
 export default function constructCsv(dataObjToWrite: BloodSample) {
-  // parse like this:
   const titles: string[] = []
   const values: string[] = []
 
-  for (const headerId in dataObjToWrite) {
-    for (const data of Object.values(
-      dataObjToWrite[headerId as keyof BloodSample]
-    )) {
-      const { title, value } = data as CommonContent
-      if (!title) continue
-      const safeValue = value === undefined ? '-' : String(value)
+  // Add input data
+  for (const [, input] of Object.entries(dataObjToWrite.inputs)) {
+    if (!input.title) continue
+    const safeValue =
+      input.value === undefined || input.value === 0 ? '-' : String(input.value)
 
-      titles.push(title)
-      values.push(String(safeValue))
-    }
+    titles.push(input.title)
+    values.push(safeValue)
+  }
+
+  // Add calculated output data using the formulas object
+  for (const [, formula] of Object.entries(formulas)) {
+    if (!formula.title) continue
+    const calculatedValue = formula.calc(dataObjToWrite)
+    const safeValue = !Number.isFinite(calculatedValue)
+      ? '-'
+      : calculatedValue.toFixed(3)
+
+    titles.push(formula.title)
+    values.push(safeValue)
   }
 
   return {

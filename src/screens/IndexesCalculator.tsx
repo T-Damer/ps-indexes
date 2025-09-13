@@ -41,7 +41,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
 
   return (
     <div>
-      <DetailsHeader />
+      <DetailsHeader bloodSample={bloodSample} id={id} />
 
       <div className="grid grid-cols-2 gap-2">
         {Object.entries(bloodSample.inputs).map(([key, input]) => (
