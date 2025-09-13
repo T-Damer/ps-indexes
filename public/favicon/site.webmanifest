@@ -1,6 +1,6 @@
 {
-  "name": "neo-N",
-  "short_name": "neo-N",
+  "name": "Подсчет индексов",
+  "short_name": "indexes",
   "icons": [
     {
       "src": "/favicon/web-app-manifest-192x192.png",

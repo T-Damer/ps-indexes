@@ -1,38 +1,33 @@
+import clsx from 'clsx'
 import { useState } from 'preact/hooks'
 import { JSX } from 'preact/jsx-runtime'
 import BloodSample from 'types/BloodSample'
-import { SelectOption } from 'types/Props'
 import Card from './Card'
 import DefaultModal from './DefaultModal'
 import GetHelp from './Icons/GetHelp'
-import LabeledSelect from './LabeledSelect'
+
+const formatNumber = (val: number, decimals = 3) =>
+  Number.isFinite(val) ? val.toFixed(decimals) : '-'
 
 export default function SampleCard({
   sampleName,
   bloodSample,
-  extraDividend,
-  dividendOptions,
-  divisorOptions,
-  extraDivisor,
   calc,
   modalBody,
   resultLabel = '',
+  normalRange,
 }: {
   sampleName: string
-  bloodSample?: BloodSample
-  extraDividend?: string
-  dividendOptions?: SelectOption[]
-  extraDivisor?: string
-  divisorOptions?: SelectOption[]
-  calc: (dividend: number, divisor: number, bloodSample?: BloodSample) => number
+  bloodSample: BloodSample
+  calc: (bloodSample: BloodSample) => number
   resultLabel?: string
   modalBody: JSX.Element
+  normalRange: { min: number; max: number }
 }) {
   const [modalOpen, setModalOpen] = useState(false)
-  const [dividend, setDividend] = useState(
-    Number(dividendOptions?.[0].value || 1)
-  )
-  const [divisor, setDivisor] = useState(Number(divisorOptions?.[0].value || 1))
+
+  const calcRes = calc(bloodSample)
+  const formattedRes = formatNumber(calcRes)
 
   return (
     <Card className="cursor-default flex-col justify-between">
@@ -41,29 +36,15 @@ export default function SampleCard({
       </span>
 
       <div>
-        {extraDividend ? (
-          <LabeledSelect
-            label={extraDividend}
-            labelClassName="text-xs"
-            className="select-xs"
-            onChange={(e) => setDividend(Number(e.currentTarget.value))}
-            value={dividend}
-            options={dividendOptions}
-          />
-        ) : null}
-        {extraDivisor ? (
-          <LabeledSelect
-            label={extraDivisor}
-            labelClassName="text-xs"
-            className="select-xs"
-            onInput={(e) => setDivisor(Number(e.currentTarget.value))}
-            value={divisor}
-            options={divisorOptions}
-          />
-        ) : null}
-
-        <span className="mt-2 flex font-bold text-xl underline">
-          {Math.round(calc(dividend, divisor, bloodSample) * 1000) / 1000}
+        <span
+          className={clsx('mt-2 flex font-bold text-xl underline', {
+            'text-red-400':
+              formattedRes !== '-' &&
+              calcRes !== 0 &&
+              (calcRes > normalRange.max || calcRes < normalRange.min),
+          })}
+        >
+          {formattedRes}
           {resultLabel}
         </span>
       </div>

@@ -5,7 +5,12 @@ import testsDataStore from 'helpers/atoms/testsDataStore'
 import handleError from 'helpers/handleError'
 import { useAtom } from 'jotai'
 import { useCallback } from 'preact/hooks'
-import { getLymphocyteIndex } from 'types/BloodSample'
+import {
+  getModalContent,
+  getOutputValue,
+  InputToResultKey,
+  ModalKeys,
+} from 'types/BloodSample'
 import { navigate } from 'wouter-preact/use-hash-location'
 
 export default function IndexesCalculator({ id }: { id: string }) {
@@ -21,20 +26,15 @@ export default function IndexesCalculator({ id }: { id: string }) {
   }
 
   const updateInputValue = useCallback(
-    (inputTitle: string, newValue: number) => {
-      setTests((prev) => ({
-        ...prev,
-        [id]: {
-          ...prev[id],
-          inputs: {
-            ...prev[id].inputs,
-            [inputTitle]: {
-              ...prev[id].inputs[inputTitle],
-              value: newValue,
-            },
-          },
-        },
-      }))
+    (key: string, value: number) => {
+      setTests((prev) => {
+        const updated = { ...prev[id] }
+        updated.inputs = {
+          ...updated.inputs,
+          [key]: { ...updated.inputs[key], value },
+        }
+        return { ...prev, [id]: updated }
+      })
     },
     [id, setTests]
   )
@@ -43,38 +43,43 @@ export default function IndexesCalculator({ id }: { id: string }) {
     <div>
       <DetailsHeader />
 
-      {Object.entries(bloodSample.inputs).map(([key, input]) => (
-        <LabeledInput
-          key={key}
-          label={input.title}
-          value={input.value}
-          step={input.step}
-          placeholder={input.placeholder}
-          min={input.min}
-          type={input.type}
-          onInput={(e) => {
-            const newValue = e.currentTarget.valueAsNumber || 0
-            console.log(newValue)
-            updateInputValue(key, newValue)
-          }}
-        />
-      ))}
+      <div className="grid grid-cols-2 gap-2">
+        {Object.entries(bloodSample.inputs).map(([key, input]) => (
+          <LabeledInput
+            key={key}
+            label={input.title}
+            value={input.value}
+            step={input.step}
+            placeholder={input.placeholder}
+            min={input.min}
+            type={input.type}
+            aria-errormessage={
+              input.range && input.value !== 0
+                ? Number(input.value) > input.range.max ||
+                  Number(input.value) < input.range.min
+                  ? 'Значение вне допустимого диапазона'
+                  : undefined
+                : undefined
+            }
+            onInput={(e) => {
+              const newValue = e.currentTarget.valueAsNumber || 0
+              updateInputValue(key, newValue)
+            }}
+          />
+        ))}
+      </div>
 
       <div className="mt-2 flex flex-row flex-wrap gap-y-2">
-        {Object.values(bloodSample.outputs).map((output) => (
+        {Object.entries(bloodSample.outputs).map(([key, output]) => (
           <SampleCard
             key={output.title}
             sampleName={output.title}
             bloodSample={bloodSample}
-            calc={(_dividend, _divisor, bloodSample) =>
-              bloodSample ? getLymphocyteIndex(bloodSample) : 0
-            }
-            modalBody={
-              <div className="mb-4">
-                <p>– Лимфоциты / Нейтрофилы</p>
-                <p>– Норма: 0.2-0.4</p>
-              </div>
-            }
+            calc={(bloodSample) => {
+              return getOutputValue(bloodSample, key as InputToResultKey)
+            }}
+            modalBody={getModalContent(key as ModalKeys)}
+            normalRange={output.normalRange}
           />
         ))}
       </div>

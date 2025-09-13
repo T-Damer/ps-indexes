@@ -18,6 +18,9 @@ export default function LabeledInput({
       <input
         {...inputProps}
         className={`input input-bordered w-full ${className}`}
+        style={{
+          color: inputProps['aria-errormessage'] ? '#f87171' : undefined,
+        }}
       />
     </label>
   )
