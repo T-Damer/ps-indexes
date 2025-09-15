@@ -123,6 +123,17 @@ const leuResistanceRange = { min: 1.8, max: 1.8 }
 const agranulocyteESRRange = { min: 3.2, max: 11 }
 const platLymphIndexRange = { min: 106, max: 150 }
 const systemImmIndexRange = { min: 342.8, max: 544.2 }
+const liiRange = { min: 0.3, max: 1.5 }
+const intoxicationIndexRange = { min: 1, max: 2.5 }
+
+const getLii = (s: BloodSample) => {
+  const neu = getValue(s, 'neutrophilsRel')
+  const mon = getValue(s, 'monocytesRel')
+  const eos = getValue(s, 'eosinophilsRel')
+  const bas = getValue(s, 'basophilsRel')
+
+  return neu / (mon + eos + bas)
+}
 
 export const formulas: OutputData = {
   lymphocyteIndex: {
@@ -199,23 +210,33 @@ export const formulas: OutputData = {
   intoxicationIndex: {
     title: 'Показатель интоксикации (ПИ)*',
     calc: (s: BloodSample) => {
-      const lym = getValue(s, 'lymphocyteIndex')
-      const neu = getValue(s, 'neutrophils')
-      const eos = getValue(s, 'eosinophils')
-      const bas = getValue(s, 'basophils')
-      const mon = getValue(s, 'monocytes')
+      const lii = getLii(s)
+      const leu = getValue(s, 'leukocytes')
+      const esr = getValue(s, 'esr')
 
-      // Формула расчета ЛИИ (Кальф-Калифа):
-      // ЛИИ = (4 × миелоциты + 3 × метамиелоциты + 2 × палочкоядерные нейтрофилы + 1 × сегментоядерные нейтрофилы) × (плазматические клетки + 1) / ((моноциты + лимфоциты) × (эозинофилы + 1))
-
-      return (lym * neu * eos * bas * mon) / 1000
+      return (lii * leu * esr) / 1000
     },
-    normalRange: { min: 0, max: 1.8 },
+    normalRange: intoxicationIndexRange,
     description: (
       <ModalWrapper>
         <p>- Индекс, показывающий наличие и степень эндогенной интоксикации</p>
-        <p>– (ЛИИ × лейкоциты (Г/л) × СОЭ (мм/ч)) / 1000</p>
-        <p>– Норма: до 1.8</p>
+        <p>– (ЛИИ × лейкоциты (абс.) × СОЭ (мм/ч)) / 1000</p>
+        <p>
+          – Норма: {intoxicationIndexRange.min}-{intoxicationIndexRange.max}
+        </p>
+      </ModalWrapper>
+    ),
+  },
+  leuIntoxicationIndex: {
+    title: 'Лейкоцитарный индекс интоксикации - ЛИИ по Островскому',
+    calc: getLii,
+    normalRange: liiRange,
+    description: (
+      <ModalWrapper>
+        <p>– нейтр. (%) / (мон.(%) + эоз.(%) + баз(%))</p>
+        <p>
+          – Норма: {liiRange.min}-{liiRange.max}
+        </p>
       </ModalWrapper>
     ),
   },
@@ -343,9 +364,7 @@ export const formulas: OutputData = {
       <ModalWrapper>
         <p>- Используется для определения степени эндогенной интоксикации</p>
         <p>– (0,1 х Лейк. × Нейтр. (%)) / (100 – Нейтр.)</p>
-        <p>
-          – Норма: {leuResistanceRange.min}-{leuResistanceRange.max}
-        </p>
+        <p>– Норма: {leuResistanceRange.min}</p>
       </ModalWrapper>
     ),
   },
