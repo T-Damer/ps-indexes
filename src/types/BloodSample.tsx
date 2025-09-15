@@ -115,6 +115,8 @@ const lymphIndexRange = { min: 0.39, max: 0.47 }
 const lymphGranIndexRange = { min: 3.87, max: 4.45 }
 const leuShiftRange = { min: 1.72, max: 2.33 }
 const leuESRRange = { min: 0.08, max: 1.8 }
+const neuLymRange = { min: 2.1, max: 2.52 }
+const neuMonoRange = { min: 7.09, max: 24 }
 const lymMonoIndexRange = { min: 3.36, max: 8 }
 const immuneReactivityRange = { min: 3.8, max: 6.5 }
 const leuResistanceRange = { min: 1.8, max: 1.8 }
@@ -133,6 +135,10 @@ export const formulas: OutputData = {
     normalRange: lymphIndexRange,
     description: (
       <ModalWrapper>
+        <p>
+          - Индекс взаимоотношения гуморального и клеточного звеньев иммунного
+          ответа организма
+        </p>
         <p>– Лимфоциты (абс.) / Нейтрофилы (абс.)</p>
         <p>
           – Норма: {lymphIndexRange.min}-{lymphIndexRange.max}
@@ -152,6 +158,10 @@ export const formulas: OutputData = {
     normalRange: lymphGranIndexRange,
     description: (
       <ModalWrapper>
+        <p>
+          - Отражает активность воспаления и позволяет дифференцировать
+          аутоинтоксикацию от инфекционной интоксикации
+        </p>
         <p>– (лим. % х 10) / (эоз. % + нейтр. %)</p>
         <p>
           – Норма: {lymphGranIndexRange.min}-{lymphGranIndexRange.max}
@@ -173,6 +183,10 @@ export const formulas: OutputData = {
     normalRange: leuShiftRange,
     description: (
       <ModalWrapper>
+        <p>
+          - Индекс, с помощью которого можно судить об эндогенной интоксикации
+          на основании лейкоцитарной формулы
+        </p>
         <p>
           – (нейтр. (абс) + эоз. (абс) + баз. (абс)) / (лим. (абс) + мон. (абс))
         </p>
@@ -196,13 +210,14 @@ export const formulas: OutputData = {
     normalRange: { min: 0, max: 1.8 },
     description: (
       <ModalWrapper>
+        <p>- Индекс, показывающий наличие и степень эндогенной интоксикации</p>
         <p>– (ЛИИ × лейкоциты, Г/л × СОЭ, мм/ч) / 1000</p>
         <p>– Норма: до 1.8</p>
       </ModalWrapper>
     ),
   },
   leuESR: {
-    title: 'Индекс соотношения лейкоцитов к COЭ (ИЛСOЭ)',
+    title: 'Индекс соотношения лейкоцитов к COЭ (ИЛСОЭ)',
     calc: (s: BloodSample) => {
       const lym = getValue(s, 'lymphocyteIndex')
       const esr = getValue(s, 'esr')
@@ -212,9 +227,56 @@ export const formulas: OutputData = {
     normalRange: leuESRRange,
     description: (
       <ModalWrapper>
+        <p>
+          - Показывает наличие эндогенной интоксикации и воспалительной реакции
+        </p>
         <p>– (лим. % х СОЭ) / 100</p>
         <p>
           – Норма: {leuESRRange.min}-{leuESRRange.max}
+        </p>
+      </ModalWrapper>
+    ),
+  },
+  neuLymIndex: {
+    title: 'Индекс соотношения лимфоцитов к нейтрофилам (ИСНЛ)',
+    calc: (s: BloodSample) => {
+      const neu = getValue(s, 'neutrophils')
+      const lym = getValue(s, 'lymphocytes')
+
+      return neu / lym
+    },
+    normalRange: neuLymRange,
+    description: (
+      <ModalWrapper>
+        <p>
+          - Описывает состояние баланса врожденного (неспецифического) и
+          адаптивного (специфического) иммунного ответа
+        </p>
+        <p>– (нейтрофилы (абс)) / (лимфоциты (абс))</p>
+        <p>
+          – Норма: {neuLymRange.min}-{neuLymRange.max}
+        </p>
+      </ModalWrapper>
+    ),
+  },
+  neuMonoIndex: {
+    title: 'Индекс соотношения нейтрофилов к моноцитам (ИСНМ)',
+    calc: (s: BloodSample) => {
+      const neu = getValue(s, 'neutrophils')
+      const mon = getValue(s, 'monocytes')
+
+      return neu / mon
+    },
+    normalRange: neuMonoRange,
+    description: (
+      <ModalWrapper>
+        <p>
+          - Отражает количественное соотношение компонентов фагоцитарной
+          системы, фагоцитарной клеточной активности
+        </p>
+        <p>– (нейтрофилы (абс)) / (моноциты (абс))</p>
+        <p>
+          – Норма: {lymMonoIndexRange.min}-{lymMonoIndexRange.max}
         </p>
       </ModalWrapper>
     ),
@@ -230,6 +292,10 @@ export const formulas: OutputData = {
     normalRange: lymMonoIndexRange,
     description: (
       <ModalWrapper>
+        <p>
+          - Показывает взаимосвязь аффекторного и эффекторного звеньев иммунной
+          системы
+        </p>
         <p>– (лим. (абс)) / (мон. (абс))</p>
         <p>
           – Норма: {lymMonoIndexRange.min}-{lymMonoIndexRange.max}
@@ -249,6 +315,10 @@ export const formulas: OutputData = {
     normalRange: immuneReactivityRange,
     description: (
       <ModalWrapper>
+        <p>
+          - Показатель состояния иммунной системы на основе оценки активности
+          клеток-продуцентов цитокинов (лимфоцитов, эозинофилов и моноцитов)
+        </p>
         <p>– (лимф. % + эоз. %) / (мон. %)</p>
         <p>
           – Норма: {immuneReactivityRange.min}-{immuneReactivityRange.max}
@@ -268,6 +338,7 @@ export const formulas: OutputData = {
     normalRange: leuResistanceRange,
     description: (
       <ModalWrapper>
+        <p>- Используется для определения степени эндогенной интоксикации</p>
         <p>– (0,1 х Лейк. × Нейтр. (%)) / (100 – Нейтр.)</p>
         <p>
           – Норма: {leuResistanceRange.min}-{leuResistanceRange.max}
@@ -287,6 +358,10 @@ export const formulas: OutputData = {
     normalRange: agranulocyteESRRange,
     description: (
       <ModalWrapper>
+        <p>
+          - Отображает активность системы мононуклеарных фагоцитов с
+          продуцентами лимфокинов с учетом СОЭ
+        </p>
         <p>– (лим. (абс) + мон. (абс)) / СОЭ</p>
         <p>
           – Норма: {agranulocyteESRRange.min}-{agranulocyteESRRange.max}
@@ -305,6 +380,9 @@ export const formulas: OutputData = {
     normalRange: platLymphIndexRange,
     description: (
       <ModalWrapper>
+        <p>
+          - является маркером воспаления и фактором прогноза развития патологии
+        </p>
         <p>– (тромб. (абс)) / (лим. (абс))</p>
         <p>
           – Норма: {platLymphIndexRange.min}-{platLymphIndexRange.max}
@@ -324,6 +402,11 @@ export const formulas: OutputData = {
     normalRange: systemImmIndexRange,
     description: (
       <ModalWrapper>
+        <p>
+          - Cистемный иммуновоспалительный индекс, объединяющий в себе такие
+          показатели как тромбоциты, нейтрофилы, лимфоциты, на основе которых
+          показывает иммуновосполительный статус системного типа
+        </p>
         <p>– (тромб. (абс) × нейтр. (абс)) / лим. (абс)</p>
         <p>
           – Норма: {systemImmIndexRange.min}-{systemImmIndexRange.max}

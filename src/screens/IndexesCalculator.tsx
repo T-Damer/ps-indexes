@@ -6,10 +6,10 @@ import handleError from 'helpers/handleError'
 import { useAtom } from 'jotai'
 import { useCallback } from 'preact/hooks'
 import {
-  getModalContent,
-  getOutputValue,
   InputToResultKey,
   ModalKeys,
+  getModalContent,
+  getOutputValue,
 } from 'types/BloodSample'
 import { navigate } from 'wouter-preact/use-hash-location'
 
