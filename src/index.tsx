@@ -1,7 +1,7 @@
 import 'index.css'
 import 'react-toastify/dist/ReactToastify.css'
-import { registerSW } from 'virtual:pwa-register'
 import App from 'App'
+import { registerSW } from 'virtual:pwa-register'
 import { render } from 'preact'
 
 const updateSW = registerSW({

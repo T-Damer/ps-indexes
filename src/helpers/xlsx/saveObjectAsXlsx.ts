@@ -1,6 +1,6 @@
 import { saveAs } from 'file-saver'
 import type BloodSample from 'types/BloodSample'
-import { type WorkBook, utils, write } from 'xlsx'
+import { utils, type WorkBook, write } from 'xlsx'
 import constructCsv from './constructCsv'
 
 const fileExtension = '.xlsx'
