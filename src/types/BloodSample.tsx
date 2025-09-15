@@ -205,13 +205,16 @@ export const formulas: OutputData = {
       const bas = getValue(s, 'basophils')
       const mon = getValue(s, 'monocytes')
 
+      // Формула расчета ЛИИ (Кальф-Калифа):
+      // ЛИИ = (4 × миелоциты + 3 × метамиелоциты + 2 × палочкоядерные нейтрофилы + 1 × сегментоядерные нейтрофилы) × (плазматические клетки + 1) / ((моноциты + лимфоциты) × (эозинофилы + 1))
+
       return (lym * neu * eos * bas * mon) / 1000
     },
     normalRange: { min: 0, max: 1.8 },
     description: (
       <ModalWrapper>
         <p>- Индекс, показывающий наличие и степень эндогенной интоксикации</p>
-        <p>– (ЛИИ × лейкоциты, Г/л × СОЭ, мм/ч) / 1000</p>
+        <p>– (ЛИИ × лейкоциты (Г/л) × СОЭ (мм/ч)) / 1000</p>
         <p>– Норма: до 1.8</p>
       </ModalWrapper>
     ),
@@ -219,10 +222,10 @@ export const formulas: OutputData = {
   leuESR: {
     title: 'Индекс соотношения лейкоцитов к COЭ (ИЛСОЭ)',
     calc: (s: BloodSample) => {
-      const lym = getValue(s, 'lymphocyteIndex')
+      const leu = getValue(s, 'leukocytes')
       const esr = getValue(s, 'esr')
 
-      return (lym * esr) / 100
+      return (leu * esr) / 100
     },
     normalRange: leuESRRange,
     description: (
@@ -230,7 +233,7 @@ export const formulas: OutputData = {
         <p>
           - Показывает наличие эндогенной интоксикации и воспалительной реакции
         </p>
-        <p>– (лим. % х СОЭ) / 100</p>
+        <p>– (лейкоциты (абс) х СОЭ) / 100</p>
         <p>
           – Норма: {leuESRRange.min}-{leuESRRange.max}
         </p>
