@@ -19,6 +19,35 @@ function createXlsxBlob(data: BloodSample) {
 
 export default function (fileName: string, data: BloodSample) {
   const { blob } = createXlsxBlob(data)
+  const fullName = fileName + fileExtension
 
-  saveAs(blob, fileName + fileExtension, { autoBom: true })
+  if (window.Telegram?.WebApp) {
+    // Check if downloadFile method is available
+    if (typeof window.Telegram.WebApp.downloadFile === 'function') {
+      try {
+        const url = URL.createObjectURL(blob)
+        window.Telegram.WebApp.downloadFile(url, fullName)
+        return true
+      } catch (error) {
+        console.warn(
+          'Telegram download failed, falling back to regular download:',
+          error
+        )
+      }
+    } else {
+      console.warn('Telegram WebApp downloadFile method not available')
+    }
+  }
+
+  saveAs(blob, fullName, { autoBom: true })
+}
+
+declare global {
+  interface Window {
+    Telegram?: {
+      WebApp?: {
+        downloadFile: (url: string, filename?: string) => void
+      }
+    }
+  }
 }
