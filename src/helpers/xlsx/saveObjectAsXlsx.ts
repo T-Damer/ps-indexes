@@ -22,16 +22,11 @@ export default function (fileName: string, data: BloodSample) {
   const { blob } = createXlsxBlob(data)
   const fullName = fileName + fileExtension
 
-  // if (isTelegram()) {
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = fullName
-  document.body.appendChild(a)
-  a.click()
-  a.remove()
-  URL.revokeObjectURL(url)
-  // }
+  if (isTelegram()) {
+    const url = URL.createObjectURL(blob)
+    window.open(url, '_system')
+    return
+  }
 
-  // saveAs(blob, fullName, { autoBom: true })
+  saveAs(blob, fullName, { autoBom: true })
 }
