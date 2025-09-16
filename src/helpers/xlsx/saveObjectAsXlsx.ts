@@ -1,4 +1,5 @@
 import { saveAs } from 'file-saver'
+import { isTelegram } from 'helpers/isTelegram'
 import type BloodSample from 'types/BloodSample'
 import { utils, type WorkBook, write } from 'xlsx'
 import constructCsv from './constructCsv'
@@ -20,6 +21,18 @@ function createXlsxBlob(data: BloodSample) {
 export default function (fileName: string, data: BloodSample) {
   const { blob } = createXlsxBlob(data)
   const fullName = fileName + fileExtension
+
+  if (isTelegram()) {
+    console.warn('telegram')
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = fullName
+    document.body.appendChild(a)
+    a.click()
+    a.remove()
+    URL.revokeObjectURL(url)
+  }
 
   saveAs(blob, fullName, { autoBom: true })
 }
