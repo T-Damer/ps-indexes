@@ -3,6 +3,7 @@ import { NativeNumericInput } from 'components/NativeInput'
 import SampleCard from 'components/SampleCard'
 import testsDataStore from 'helpers/atoms/testsDataStore'
 import handleError from 'helpers/handleError'
+import { isTelegram } from 'helpers/isTelegram'
 import { useAtom } from 'jotai'
 import { useCallback } from 'preact/hooks'
 import {
@@ -43,6 +44,11 @@ export default function IndexesCalculator({ id }: { id: string }) {
     <div>
       <DetailsHeader bloodSample={bloodSample} id={id} />
 
+      {isTelegram() ? (
+        <div className="mt-2 w-full rounded-lg bg-warning p-2 text-center">
+          Внимание, загрузка файлов в телеграм может не работать
+        </div>
+      ) : null}
       <div className="grid grid-cols-2 gap-2">
         {Object.entries(bloodSample.inputs).map(([key, input]) => (
           <NativeNumericInput

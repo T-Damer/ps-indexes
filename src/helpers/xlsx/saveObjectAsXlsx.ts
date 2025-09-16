@@ -23,12 +23,7 @@ export default function (fileName: string, data: BloodSample) {
   const fullName = fileName + fileExtension
 
   if (isTelegram()) {
-    const tgApp = isTelegram()
-    const url = URL.createObjectURL(blob)
-    // @ts-ignore
-    tgApp?.downloadFile(url, fullName)
-
-    return
+    alert('Внимание, загрузка файлов в телеграм может не работать')
   }
 
   saveAs(blob, fullName, { autoBom: true })
