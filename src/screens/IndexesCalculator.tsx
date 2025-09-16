@@ -1,5 +1,5 @@
 import DetailsHeader from 'components/DetailsHeader'
-import LabeledInput from 'components/LabeledInput'
+import { NativeNumericInput } from 'components/NativeInput'
 import SampleCard from 'components/SampleCard'
 import testsDataStore from 'helpers/atoms/testsDataStore'
 import handleError from 'helpers/handleError'
@@ -45,7 +45,7 @@ export default function IndexesCalculator({ id }: { id: string }) {
 
       <div className="grid grid-cols-2 gap-2">
         {Object.entries(bloodSample.inputs).map(([key, input]) => (
-          <LabeledInput
+          <NativeNumericInput
             key={key}
             label={input.title}
             value={input.value}
@@ -63,9 +63,9 @@ export default function IndexesCalculator({ id }: { id: string }) {
                 input.value !== 0 &&
                 Number(input.value) > input.range.max
             )}
-            onInput={(e) => {
-              const newValue = e.currentTarget.valueAsNumber || 0
-              updateInputValue(key, newValue)
+            onValueChange={(value) => {
+              if (!value) return
+              updateInputValue(key, value)
             }}
           />
         ))}
