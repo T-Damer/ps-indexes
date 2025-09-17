@@ -59,7 +59,7 @@ export const NativeNumericInput = ({
         id="native-input"
         value={displayValue}
         onChange={handleValueChange}
-        inputMode="numeric"
+        inputMode="decimal"
         className={clsx('input input-bordered w-full', className, {
           'input-error': inputProps['data-isHigh'],
           'input-warning': inputProps['data-isLow'],
